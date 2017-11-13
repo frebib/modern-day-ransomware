@@ -6,5 +6,8 @@ PDF=main.pdf
 all:
 	latexmk -pdf ${TEX}
 
-clean:
-	$(RM) *.aux *.dvi *.fdb *.fls *.log *.pdf *.fdb_latexmk
+.phony: clean tidy
+clean: tidy
+	$(RM) ${PDF}
+tidy:
+	$(RM) *.aux *.dvi *.fdb *.fls *.log *.fdb_latexmk
