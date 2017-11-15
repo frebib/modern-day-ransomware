@@ -1,7 +1,14 @@
-\documentclass[10pt]{article}
-\usepackage[margin=7em]{geometry}
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=9em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+
+% Fix paragraph spacing and use of noindent
+\usepackage[parfill]{parskip}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{1.4\parskip}{0.2\parskip}
+\titlespacing{\subsection}{0pt}{1.4\parskip}{0.2\parskip}
+\titlespacing{\subsubsection}{0pt}{1.4\parskip}{0.2\parskip}
 
 \begin{document}
 
@@ -16,30 +23,33 @@
     {\large \today}
   \end{center}
   \vspace*{\fill}
+  \tableofcontents
 \end{titlepage}
-  
+
 \newpage
 
 \section{Introduction}
 \subsection{Description of the problem}
-Ransomware is a type of malware that prevents or limits users from accessing their system, either by locking the system's screen or by locking the users' files until a ransom is paid. More modern ransomware families, collectively categorized as crypto-ransomware, encrypt certain file types on infected systems and force users to pay the ransom through given online payment methods to get a decrypt key. \\
-\noindent Starting from around 2012 the use of ransomware frauds has grown worldwide. In June 2013, vendor McAfee released data showing that it had collected more than double the number of samples of ransomware that quarter than it had in the same quarter of the previous year. CryptoLocker was particularly successful, procuring an estimated US \$3 million before it was taken down by authorities, and CryptoWall was estimated by the US Federal Bureau of Investigation (FBI) to have accrued over US \$18m by June 2015.\\
-\noindent 
-\noindent \textbf{Symantec has classified ransomware to be the most dangerous cyber threat.}
+Ransomware is a type of malware that prevents or limits users from accessing their system, either by locking the system's screen or by locking the users' files until a ransom is paid. More modern ransomware families, collectively categorized as crypto-ransomware, encrypt certain file types on infected systems and force users to pay the ransom through given online payment methods to get a decrypt key.
+
+Starting from around 2012 the use of ransomware frauds has grown worldwide. In June 2013, vendor McAfee released data showing that it had collected more than double the number of samples of ransomware that quarter than it had in the same quarter of the previous year. CryptoLocker was particularly successful, procuring an estimated US \$3 million before it was taken down by authorities, and CryptoWall was estimated by the US Federal Bureau of Investigation (FBI) to have accrued over US \$18m by June 2015.
+
+\textbf{Symantec has classified ransomware to be the most dangerous cyber threat. \cite{symantec}}
 
 \subsection{Motivation}
 Traditionally, crypto-ransomware targeted individuals and encrypted their personal data and files as a form of extortion for hundreds of dollars. Ransomware has evolved to target businesses and government agencies for much larger financial gains. Ransomware authors are pivoting their attacks from individuals to government entities and health care institutions, causing a threat to public safety. \textbf{TODO - add stuff based on Cristophe's answer}
 
 \section{Ransomware attacks}
 \subsection{Reveton}
-Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that targeted European users on the Windows operating systems (Windows XP \& Windows 7) since 2012. This ransomware can only infect by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources, spam websites or e-mail for examples. \\
-Once Reveton successfully infects the computer, it will prevent the victim from accessing the system, and display a message mimicking from a local law enforcement authority warning that illegal content is being stored in the victim’s computer. It also states that a fine must be paid to avoid prosecution.\\
+Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that targeted European users on the Windows operating systems (Windows XP \& Windows 7) since 2012. This ransomware can only infect by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources, spam websites or e-mail for examples.
+
+Once Reveton successfully infects the computer, it will prevent the victim from accessing the system, and display a message mimicking from a local law enforcement authority warning that illegal content is being stored in the victim’s computer. It also states that a fine must be paid to avoid prosecution.
 Upon execution, it follows these steps:
 \begin{enumerate}
-\item It copies itself to a non-suspicious-looking folder 
+\item It copies itself to a non-suspicious-looking folder
 \item Creates a registry entry in the autorun registry hive
 \item Runs in special installation mode – injects installation code to \texttt{explorer.exe} that connects to its command-and-control server
-\item Download the local authority’s logo and local language that matches the geometric information of victim’s IP address. 
+\item Download the local authority’s logo and local language that matches the geometric information of victim’s IP address.
 \item When running in ransomware mode, it creates two threads:
 \begin{itemize}
 \item \textbf{\textit{Thread 1: }}An endless loop that displays a picture of a warning message and a local authority’s logo, and waits for the victim to enter his/her payment information.
@@ -48,13 +58,14 @@ Upon execution, it follows these steps:
 \end{enumerate}
 \subsection{CryptoLocker}
 \subsection{WannaCry \& Petya}
-WannaCry (AKA WannaCrypt0r), is piece of ransomware that had a worldwide outburst in May 2017 and has affected major companies such as the British National Health Service (NHS), the Spanish company Telefónica and the German railway company Deutsche Bahn, causing major disruptions. The behavior of it consists in encrypting the data on the machine using RSA 2048, a strong asymmetric encryption method and demanding payment of \$300 worth of bitcoin currency in order to recover the data. The malicious software targets MS Windows systems making use of two exploits developed by the American National Security Agency (NSA) that were leaked on Tuesday 14th of April 2017 by the hacker group The Shadow Brokers. The two exploits are EternalBlue and Double Pulsar which are completely independent of each other. \\ \\
-\textbf{\textit{EternalBlue}} exploits a vulnerability in Microsoft's implementation of Server Message Block (SMBv1), a protocol commonly used for sharing access to files, printers, serial ports and other services across a network. Such vulnerability consists in erroneous processing of packets carefully crafted by a remote attacker. 
+WannaCry (AKA WannaCrypt0r), is piece of ransomware that had a worldwide outburst in May 2017 and has affected major companies such as the British National Health Service (NHS), the Spanish company Telefónica and the German railway company Deutsche Bahn, causing major disruptions. The behavior of it consists in encrypting the data on the machine using RSA 2048, a strong asymmetric encryption method and demanding payment of \$300 worth of bitcoin currency in order to recover the data. The malicious software targets MS Windows systems making use of two exploits developed by the American National Security Agency (NSA) that were leaked on Tuesday 14th of April 2017 by the hacker group The Shadow Brokers. The two exploits are EternalBlue and Double Pulsar which are completely independent of each other.
 
-\noindent\textbf{\textit{Double Pulsar}} is a backdoor tool used as the primary payload by recent exploits developed by the NSA. It runs in privileged Kernel mode, making use of 3 commands: \texttt{ping}, \texttt{kill} and \texttt{exec}. The latter is used to run additional malware on the infected system. The backdoor communicates with remote sources over port 445 (used for SMB over IP), producing a distinctive response by which it can be detected, when prompted with a correctly crafted request. \\
+\textbf{\textit{EternalBlue}} exploits a vulnerability in Microsoft's implementation of Server Message Block (SMBv1), a protocol commonly used for sharing access to files, printers, serial ports and other services across a network. Such vulnerability consists in erroneous processing of packets carefully crafted by a remote attacker.
 
-\noindent In order to anonymize communication to its designers, WannaCrypt0r makes use of \textit{\textbf{Tor}}, which is installed when the system is infected. Tor provides a Hidden Service Protocol which makes it extremely difficult to localize the malicious remote service being run by the attackers. \\
-\noindent Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack. \\
+\textbf{\textit{Double Pulsar}} is a backdoor tool used as the primary payload by recent exploits developed by the NSA. It runs in privileged Kernel mode, making use of 3 commands: \texttt{ping}, \texttt{kill} and \texttt{exec}. The latter is used to run additional malware on the infected system. The backdoor communicates with remote sources over port 445 (used for SMB over IP), producing a distinctive response by which it can be detected, when prompted with a correctly crafted request.
+
+In order to anonymize communication to its designers, WannaCrypt0r makes use of \textit{\textbf{Tor}}, which is installed when the system is infected. Tor provides a Hidden Service Protocol which makes it extremely difficult to localize the malicious remote service being run by the attackers.
+Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack.
 
 \section{Mitigations}
 \subsection{Reveton}
@@ -63,8 +74,8 @@ When a computer is infected by Reveton, the trojan files are ran at system start
 \subsection{CryptoLocker}
 \subsection{WannaCry}
 \subsubsection{Patches}
-Microsoft was made aware by the NSA of the possible theft of EternalBlue and had developed and released critical security updates for all their supported operating systems at the time, and additionally the recently discontinued Vista in March 2017, 2 months prior to the spread of WannaCry. \\
-Additionally, a day after the outbreak, the software house released a one off security patch for their discontinued systems, XP and Server 2003.\\
+Microsoft was made aware by the NSA of the possible theft of EternalBlue and had developed and released critical security updates for all their supported operating systems at the time, and additionally the recently discontinued Vista in March 2017, 2 months prior to the spread of WannaCry.
+Additionally, a day after the outbreak, the software house released a one off security patch for their discontinued systems, XP and Server 2003.
 The impact of the malware could have mitigated by simply keeping up to date with critical updates. In environments where downtime needs to be kept to a bare minimum this can be difficult but, as proven by the outburst of WannaCry, failure to patch the systems can result in much more inconvenient disruptions than those caused by a scheduled update.
 \subsubsection{Register Kill switch domain}
 The aforementioned kill switch can be found relatively easily conducting some static analysis on the portable executable of WannaCry, by inspecting it with \texttt{pestr} which is part of the "PEV" toolkit for file analysis. By running the \texttt{pestr --net <wanacryExecName>} command, one of the strings returned will be the kill switch URL. Registering such domain will prevent the malware from executing and spreading further.
@@ -81,8 +92,25 @@ By conducting some behavioral analysis conducted on the "WannaDecrypt0r" executa
 
 
 \section{Conclusions}
+% Mostly Windows
+% Use of proven cryptography
 
+\newpage
 \begin{thebibliography}{1}
+\bibitem{symantec}
+Dick O’Brien
+\textit{Internet Security Threat Report: Ransomware}, July 2017
+\\\texttt{https://www.symantec.com/content/dam/symantec/docs/security\-center/white\-papers/istr\-ransomware\-2017\-en.pdf}
 \bibitem{s} Efternamn, Namn, (År). Titel. Företag/Förening/Anstalt/Tidsskrift
+\bibitem{genernalmitigation}
+Drive-By Downloads: How They Attack and How to Defend Yourself
+\\\texttt{https://www.tomsguide.com/us/driveby\-download,news\-18329.html}
+\bibitem{revetonremoval}
+Trojan:W32/Reveton
+\\\texttt{https://www.f\-secure.com/v\-descs/trojan\_w32\_reveton.shtml}
+\bibitem{revetonanalysis}
+The “Police Trojan”
+AN IN-DEPTH ANALYSIS
+\\\texttt{https://www.trendmicro.de/cloud\-content/us/pdfs/security\-intelligence/white\-papers/wp\_police\_trojan.pdf}
 \end{thebibliography}
 \end{document}
