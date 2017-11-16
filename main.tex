@@ -2,6 +2,7 @@
 \usepackage[margin=9em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{eurosym}
 
 % Fix paragraph spacing and use of noindent
 \usepackage[parfill]{parskip}
@@ -56,7 +57,14 @@ Upon execution, it follows these steps:
 \item \textbf{\textit{Thread 2: }}Another endless loop that constantly checks for specific processes which may be able to stop or terminate the execution of Reveton, and if any is found, it would kill the process immediately.
 \end{itemize}
 \end{enumerate}
+
 \subsection{CryptoLocker}
+Between September 2013 and May 2014, CryptoLocker, a trojan-based ransomware was distributed via legitimate looking infected email attachments and also the \textit{Gameover ZeuS} botnet infecting computers running Windows. Upon receipt of the infected ZIP file, the user would extract it and unknowingly run an executable file disguised as a PDF displayed with the same icon used by PDF files \-- this was also assisted by Windows hiding file extensions from the user.by default.
+
+Upon installation this attack embeded itself as system service so that it would always be run when the computer was restarted. Attempts are then made to contact one or many \textit{Command and Control} servers, which can be a local or remote server which varied on a frequent basis to reduce traceability. Once connected, the server generated a 2048 bit RSA key and sent the public component to the infected computer to be used for encryption.
+
+CryptoLocker targeted files with particular extensions such as office documents, photographs and AutoCAD drawing files, encrypting them inplace with the unique public key before displaying a window with a demand of \$400 USD, \euro400 or the equivalent in BitCoin (BTC), starting and 2 BTC, adjusted down to just 0.3 BTC with the fluctuating price of BitCoin. Upon payment the user would be sent a link to download a binary preloaded with the appropriate private key that could be used to decrypt all encrypted files however there were reports of some users not recieving a decryption key even after paying the ransom.
+
 \subsection{WannaCry \& Petya}
 WannaCry (AKA WannaCrypt0r), is piece of ransomware that had a worldwide outburst in May 2017 and has affected major companies such as the British National Health Service (NHS), the Spanish company Telefónica and the German railway company Deutsche Bahn, causing major disruptions. The behavior of it consists in encrypting the data on the machine using RSA 2048, a strong asymmetric encryption method and demanding payment of \$300 worth of bitcoin currency in order to recover the data. The malicious software targets MS Windows systems making use of two exploits developed by the American National Security Agency (NSA) that were leaked on Tuesday 14th of April 2017 by the hacker group The Shadow Brokers. The two exploits are EternalBlue and Double Pulsar which are completely independent of each other.
 
