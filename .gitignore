@@ -6,3 +6,4 @@
 *.log
 *.fdb_latexmk
 *.toc
+*vimtex*
