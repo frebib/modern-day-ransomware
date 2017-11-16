@@ -41,11 +41,13 @@ Starting from around 2012 the use of ransomware frauds has grown worldwide. In J
 Traditionally, crypto-ransomware targeted individuals and encrypted their personal data and files as a form of extortion for hundreds of dollars. Ransomware has evolved to target businesses and government agencies for much larger financial gains. Ransomware authors are pivoting their attacks from individuals to government entities and health care institutions, causing a threat to public safety. \textbf{TODO - add stuff based on Cristophe's answer}
 
 \section{Ransomware attacks}
+
 \subsection{Reveton}
 Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that targeted European users on the Windows operating systems (Windows XP \& Windows 7) since 2012. This ransomware can only infect by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources, spam websites or e-mail for examples.
 
 Once Reveton successfully infects the computer, it will prevent the victim from accessing the system, and display a message mimicking from a local law enforcement authority warning that illegal content is being stored in the victim’s computer. It also states that a fine must be paid to avoid prosecution.
 Upon execution, it follows these steps:
+
 \begin{enumerate}
 \item It copies itself to a non-suspicious-looking folder
 \item Creates a registry entry in the autorun registry hive
@@ -76,17 +78,24 @@ In order to anonymize communication to its designers, WannaCrypt0r makes use of 
 Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack.
 
 \section{Mitigations}
+
 \subsection{Reveton}
+
 \subsubsection{Trojan Removal}
 When a computer is infected by Reveton, the trojan files are ran at system startup. Therefore by booting Windows system to safe mode can avoid activitation of Reveton, and victim can then remove Trojan related files. The Trojan file location varies Depending on the version of Reveton.
+
 \subsection{CryptoLocker}
+
 \subsection{WannaCry}
+
 \subsubsection{Patches}
 Microsoft was made aware by the NSA of the possible theft of EternalBlue and had developed and released critical security updates for all their supported operating systems at the time, and additionally the recently discontinued Vista in March 2017, 2 months prior to the spread of WannaCry.
 Additionally, a day after the outbreak, the software house released a one off security patch for their discontinued systems, XP and Server 2003.
 The impact of the malware could have mitigated by simply keeping up to date with critical updates. In environments where downtime needs to be kept to a bare minimum this can be difficult but, as proven by the outburst of WannaCry, failure to patch the systems can result in much more inconvenient disruptions than those caused by a scheduled update.
+
 \subsubsection{Register Kill switch domain}
 The aforementioned kill switch can be found relatively easily conducting some static analysis on the portable executable of WannaCry, by inspecting it with \texttt{pestr} which is part of the "PEV" toolkit for file analysis. By running the \texttt{pestr --net <wanacryExecName>} command, one of the strings returned will be the kill switch URL. Registering such domain will prevent the malware from executing and spreading further.
+
 \subsubsection{Blacklisting related IP addresses}
 By conducting some behavioral analysis conducted on the "WannaDecrypt0r" executable, string generated during its execution can be observed and a RegEx filter applied to isolate all strings listing IPv4 addresses. These are the addresses that will be used in the setup of the Tor circuit used to remotely communicate with the attackers. Such addresses could be blacklisted in the firewall to prevent further communication.
 
@@ -105,27 +114,28 @@ By conducting some behavioral analysis conducted on the "WannaDecrypt0r" executa
 % Use of proven cryptography
 
 \newpage
+
 \begin{thebibliography}{1}
+
 \bibitem{symantec}
 Dick O’Brien
 \textit{Internet Security Threat Report: Ransomware}, July 2017
 \\\texttt{https://www.symantec.com/content/dam/symantec/docs/security\-center/white\-papers/istr\-ransomware\-2017\-en.pdf}
+
 \bibitem{s} Efternamn, Namn, (År). Titel. Företag/Förening/Anstalt/Tidsskrift
+
 \bibitem{genernalmitigation}
 Drive-By Downloads: How They Attack and How to Defend Yourself
 \\\texttt{https://www.tomsguide.com/us/driveby\-download,news\-18329.html}
+
 \bibitem{revetonremoval}
 Trojan:W32/Reveton
 \\\texttt{https://www.f\-secure.com/v\-descs/trojan\_w32\_reveton.shtml}
+
 \bibitem{revetonanalysis}
 The “Police Trojan”
 AN IN-DEPTH ANALYSIS
-% * <frebib@gmail.com> 2017-11-15T23:30:44.080Z:
-%
-% ^.
-% * <frebib@gmail.com> 2017-11-15T23:30:42.637Z:
-%
-% ^.
 \\\texttt{https://www.trendmicro.de/cloud\-content/us/pdfs/security\-intelligence/white\-papers/wp\_police\_trojan.pdf}
 \end{thebibliography}
+
 \end{document}
