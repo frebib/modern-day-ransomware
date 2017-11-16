@@ -89,13 +89,14 @@ The impact of the malware could have mitigated by simply keeping up to date with
 The aforementioned kill switch can be found relatively easily conducting some static analysis on the portable executable of WannaCry, by inspecting it with \texttt{pestr} which is part of the "PEV" toolkit for file analysis. By running the \texttt{pestr --net <wanacryExecName>} command, one of the strings returned will be the kill switch URL. Registering such domain will prevent the malware from executing and spreading further.
 \subsubsection{Blacklisting related IP addresses}
 By conducting some behavioral analysis conducted on the "WannaDecrypt0r" executable, string generated during its execution can be observed and a RegEx filter applied to isolate all strings listing IPv4 addresses. These are the addresses that will be used in the setup of the Tor circuit used to remotely communicate with the attackers. Such addresses could be blacklisted in the firewall to prevent further communication.
-\subsection{In General}
+
+\subsection{General good practice}
 \begin{itemize}
-\item Keeping the operating system and firewall up-to-date
-\item Install a robust anti-virus software and keep it up-to-date, so it contains the latest malware definition.
-\item Create accounts for privilege user and normal user, and set limit permission for normal user when installing, updating, and uninstalling software
-\item Create an image/snapshot/time machine back-up of your OS to revert back to it in case anything happens to your main environment
-\item Keep your important files backed-up on an external storage device or on an online storage service (E.g. Dropbox, OneDrive etc.) to avoid losing them
+\item Keep the operating system and firewall up-to-date and patched
+\item Install robust anti-virus software and keep it updated, so it contains the latest malware definitions.
+\item Create accounts for privilege user and normal user and limit permissions for unprivileged user when installing, updating, and uninstalling software.
+\item Create regular backups of your operating system to revert back to in the case of infection.
+\item Keep important files backed up in on an external storage device and offsite via an online storage service (e.g. Dropbox, OneDrive etc.)
 \end{itemize}
 
 
