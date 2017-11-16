@@ -33,9 +33,9 @@
 
 \section{Introduction}
 \subsection{Description of the problem}
-Ransomware is a type of malware that prevents or limits users from accessing their system, either by locking the system's screen or by locking the users' files until a ransom is paid. More modern ransomware families, collectively categorized as crypto-ransomware, encrypt certain file types on infected systems and force users to pay the ransom through given online payment methods to get a decrypt key.
+Ransomware is a type of malware that prevents or limits users from accessing their system, either by locking the system's screen or by locking the users' files until a ransom is paid. More modern ransomware families, collectively categorized as crypto-ransomware, encrypt certain file types on infected systems and force users to pay the ransom through given online payment methods to get a decrypt key.\cite{trend}
 
-Starting from around 2012 the use of ransomware frauds has grown worldwide. In June 2013, vendor McAfee released data showing that it had collected more than double the number of samples of ransomware that quarter than it had in the same quarter of the previous year. CryptoLocker was particularly successful, procuring an estimated US \$3 million before it was taken down by authorities, and CryptoWall was estimated by the US Federal Bureau of Investigation (FBI) to have accrued over US \$18m by June 2015.
+Starting from around 2012 the use of ransomware frauds has grown worldwide.\cite{grown1}\cite{grown2} In June 2013, vendor McAfee released data showing that it had collected more than double the number of samples of ransomware that quarter than it had in the same quarter of the previous year.\cite{mcafee} CryptoLocker was particularly successful, procuring an estimated US \$3 million before it was taken down by authorities\cite{bbc}, and CryptoWall was estimated by the US Federal Bureau of Investigation (FBI) to have accrued over US \$18m by June 2015.\cite{cyberwall}
 
 \textbf{Symantec has classified ransomware to be the most dangerous cyber threat. \cite{symantec}}
 
@@ -45,10 +45,10 @@ Traditionally, crypto-ransomware targeted individuals and encrypted their person
 \section{Ransomware attacks}
 
 \subsection{Reveton}
-Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that targeted European users on the Windows operating systems (Windows XP \& Windows 7) since 2012. This ransomware can infect computers only by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources, spam websites or e-mail for examples.
+Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that targeted European users on the Windows operating systems (Windows XP \& Windows 7) since 2012. This ransomware can infect computers only by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources, spam websites or e-mail for examples .
 
 Once Reveton successfully infects the computer, it will prevent the victim from accessing the system, and display a message mimicking from a local law enforcement authority warning that illegal content is being stored in the victim’s computer. It also states that a fine must be paid to avoid prosecution.
-Upon execution, it follows these steps:
+Upon execution, it follows these steps\cite{revetonanalysis}:
 
 \begin{enumerate}
 \item It copies itself to a non-suspicious-looking folder
@@ -76,15 +76,15 @@ WannaCry (AKA WannaCrypt0r), is piece of ransomware that had a worldwide outburs
 
 \textbf{\textit{Double Pulsar}} is a backdoor tool used as the primary payload by recent exploits developed by the NSA. It runs in privileged Kernel mode, making use of 3 commands: \texttt{ping}, \texttt{kill} and \texttt{exec}. The latter is used to run additional malware on the infected system. The backdoor communicates with remote sources over port 445 (used for SMB over IP), producing a distinctive response by which it can be detected, when prompted with a correctly crafted request.
 
-In order to anonymize communication to its designers, WannaCrypt0r makes use of \textit{\textbf{Tor}}, which is installed when the system is infected. Tor provides a Hidden Service Protocol which makes it extremely difficult to localize the malicious remote service being run by the attackers.
-Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack.
+In order to anonymize communication to its designers, WannaCrypt0r makes use of \textit{\textbf{Tor}}, which is installed when the system is infected. Tor provides a Hidden Service Protocol \cite{torcircuits} which makes it extremely difficult to localize the malicious remote service being run by the attackers.
+Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack \cite{wanacrySystems}.
 
 \section{Mitigations}
 
 \subsection{Reveton}
 
 \subsubsection{Trojan Removal}
-When a computer is infected by Reveton, the trojan files are ran at system startup. Therefore by booting Windows system to safe mode can avoid activitation of Reveton, and victim can then remove Trojan related files. The Trojan file location varies Depending on the version of Reveton.
+When a computer is infected by Reveton, the trojan files are ran at system startup. Therefore by booting Windows system to safe mode can avoid activitation of Reveton, and victim can then remove Trojan related files\cite{revetonremoval}. The Trojan file location varies Depending on the version of Reveton.
 
 \subsection{CryptoLocker}
 
@@ -96,28 +96,59 @@ Additionally, a day after the outbreak, the software house released a one off se
 The impact of the malware could have mitigated by simply keeping up to date with critical updates. In environments where downtime needs to be kept to a bare minimum this can be difficult but, as proven by the outburst of WannaCry, failure to patch the systems can result in much more inconvenient disruptions than those caused by a scheduled update.
 
 \subsubsection{Register Kill switch domain}
-The aforementioned kill switch can be found relatively easily conducting some static analysis on the portable executable of WannaCry, by inspecting it with \texttt{pestr} which is part of the ``PEV'' toolkit for file analysis. By running the \texttt{pestr --net <wanacryExecName>} command, one of the strings returned will be the kill switch URL. Registering such domain will prevent the malware from executing and spreading further.
+The aforementioned kill switch can be found relatively easily conducting some static analysis on the portable executable of WannaCry, by inspecting it with \texttt{pestr} which is part of the ``PEV'' toolkit for file analysis \cite{PEtoolkit}. By running the \texttt{pestr --net <wanacryExecName>} command, one of the strings returned will be the kill switch URL \cite{pestrVideo}. Registering such domain will prevent the malware from executing and spreading further.
 
 \subsubsection{Blacklisting related IP addresses}
-By conducting some behavioral analysis conducted on the ``WannaDecrypt0r'' executable, string generated during its execution can be observed and a RegEx filter applied to isolate all strings listing IPv4 addresses. These are the addresses that will be used in the setup of the Tor circuit used to remotely communicate with the attackers. Such addresses could be blacklisted in the firewall to prevent further communication.
+By conducting some behavioral analysis conducted on the ``WannaDecrypt0r'' executable, string generated during its execution can be observed and a RegEx filter applied to isolate all strings listing IPv4 addresses as demonstrated in \cite{wanacryFindIpAddr}. These are the addresses that will be used in the setup of the Tor circuit used to remotely communicate with the attackers. Such addresses could be blacklisted in the firewall to prevent further communication.
 
 \subsection{General good practice}
 \begin{itemize}
-\item Keep the operating system and firewall up-to-date and patched
+\item Keep the operating system and firewall up-to-date and patched.
 \item Install robust anti-virus software and keep it updated, so it contains the latest malware definitions.
 \item Create accounts for privilege user and normal user and limit permissions for unprivileged user when installing, updating, and uninstalling software.
 \item Create regular backups of your operating system to revert back to in the case of infection.
-\item Keep important files backed up in on an external storage device and offsite via an online storage service (e.g. Dropbox, OneDrive etc.)
+\item Keep important files backed up in on an external storage device and offsite via an online storage service (e.g. Dropbox, OneDrive etc).
 \end{itemize}
 
 
 \section{Conclusions}
+
 % Mostly Windows
 % Use of proven cryptography
 
 \newpage
 
 \begin{thebibliography}{1}
+
+\bibitem{trend}
+Trend Micro
+\textit{Ransomware}
+\\\texttt{https://www.trendmicro.com/vinfo/us/security/definition/ransomware}
+
+\bibitem{grown1}
+Dunn, John E.
+\textit{Ransom Trojans spreading beyond Russian heartland}, 09 March 2012
+\\\texttt{https://www.techworld.com/news/security/ransom-trojans-spreading-beyond-russian-heartland-3343528/}
+
+\bibitem{grown2}
+FBI
+\textit{New Internet scam: Ransomware}, 09 August 2012
+\\\texttt{https://www.fbi.gov/news/stories/new-internet-scam/new-internet-scam}
+
+\bibitem{mcafee}
+Cyber criminals using Android malware and ransomware the most
+\textit{McAfee}, 16 September 2013
+\\\texttt{https://www.infoworld.com/article/2614854/security/update--mcafee--cyber-criminals-using-android-malware-and-ransomware-the-most.html}
+
+\bibitem{bbc}
+Cryptolocker victims to get files back for free
+\textit{BBC News}, 06 August 2014
+\\\texttt{http://www.bbc.co.uk/news/technology-28661463}
+
+\bibitem{cyberwall}
+FBI says crypto ransomware has raked in >\$18 million for cybercriminals
+\textit{Ars Technica}, 25 June 2015
+\\\texttt{https://arstechnica.com/information-technology/2015/06/fbi-says-crypto-ransomware-has-raked-in-18-million-for-cybercriminals}
 
 \bibitem{symantec}
 Dick O’Brien
@@ -151,7 +182,11 @@ WannaCry 2.0 - Three ways to find the Kill Switch
 
 \bibitem{wanacryFindIpAddr}
 WannaCry 2.0 Ransomware
-\\\texttt{}
+\\\texttt{https://www.youtube.com/watch?v=d\_j8UUQbJsc}
+
+\bibitem{wanacrySystems}
+Almost all WannaCry victims were running Windows 7
+\\\texttt{https://www.theverge.com/2017/5/19/15665488/wannacry-windows-7-version-xp-patched-victim-statistics}
 
 \end{thebibliography}
 
