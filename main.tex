@@ -4,6 +4,7 @@
 \usepackage[UKenglish]{babel}
 \usepackage[UKenglish]{isodate}
 \usepackage{eurosym}
+\usepackage[hyphens]{url}
 
 % Fix paragraph spacing and use of noindent
 \usepackage[parfill]{parskip}
@@ -29,7 +30,7 @@
 
 \tableofcontents
 
-\medskip
+\newpage
 
 \section{Introduction}
 \subsection{Description of the problem}
@@ -63,7 +64,7 @@ Upon execution, it follows these steps\cite{revetonanalysis}:
 \end{enumerate}
 
 \subsection{CryptoLocker}
-Between September 2013 and May 2014, CryptoLocker, a trojan-based ransomware was distributed via legitimate looking infected email attachments and also the \textit{Gameover ZeuS} botnet infecting computers running Windows. Upon receipt of the infected ZIP file, the user would extract it and unknowingly run an executable file disguised as a PDF displayed with the same icon used by PDF files \-- this was also assisted by Windows hiding file extensions from the user.by default.
+Between September 2013 and May 2014, CryptoLocker, a trojan-based ransomware was distributed via legitimate looking infected email attachments and also the \textit{Gameover ZeuS} botnet infecting computers running Windows. Upon receipt of the infected ZIP file, the user would extract it and unknowingly run an executable file disguised as a PDF displayed with the same icon used by PDF files -- this was also assisted by Windows hiding file extensions from the user.by default.
 
 Upon installation this attack embedded itself as system service so that it would always be run when the computer was restarted. Attempts are then made to contact one or many \textit{Command and Control} servers, which can be a local or remote server which varied on a frequent basis to reduce traceability. Once connected, the server generated a 2048 bit RSA key and sent the public component to the infected computer to be used for encryption.
 
@@ -81,7 +82,7 @@ WannaCry (AKA WannaCrypt0r), is piece of ransomware that had a worldwide outburs
 In order to anonymize communication to its designers, WannaCrypt0r makes use of \textit{\textbf{Tor}}, which is installed when the system is infected. Tor provides a Hidden Service Protocol \cite{torcircuits} which makes it extremely difficult to localize the malicious remote service being run by the attackers.
 Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack \cite{wanacrySystems}.
 
-\section{Mitigations}
+\section{Mitigations} \label{sec:mitigations}
 
 \subsection{Reveton}
 
@@ -115,9 +116,18 @@ These are some common guidelines we should follow in order to prevent our system
 
 
 \section{Conclusions}
+During this study we found Microsoft Windows is the operating systems that is targeted the most by ransomware. We believe that the reasons behind this correlate to the wide spread of Windows worldwide and to the wide variety of attack vectors and vulnerabilities found. While some ransomware attacks on Unix based systems exist~\cite{linuxRansomware}~\cite{osxRansomware} they aren't very well constructed as more often than not, the encryption is irreversible even after paying the ransom due to the lack of a remote channel of communication embedded in the binaries.
 
-% Mostly Windows
+We also found that most ransomware make use of strong, proven cryptography making for a very effective attack which causes the user to be likely to pay the ransom if they value their data as there is no way of getting it back without the correct key.
+
+When reading reports and articles detailing the misfortunes caused by recent attacks it becomes obvious that they usually exploit user naiveness and dated vulnerabilities which are often fixed before exploits are created but still work because users do not update their system as soon as it becomes available. This is an interesting psychological interaction between users and the Windows Update mechanism which is disliked by many because it starts at random times and hogs all of the machine's CPU. Microsoft has done some improvments that let users select at which time of day it is ok to update the system but nonetheless some users still defere critical updates because of it. In addition to the updating policies discussed in Section \ref{sec:mitigations} it is therefore crucial for companies and corporations to increase employee awareness with appropriate training that helps them recognize potential attack vectors.
+
+
+% quote here: many of the ransomware attacks studied used trusted tools like Microsoft's PowerShell to slip past certain antivirus software. More prevalent malware even used PowerShell as a means to download and run the actual ransomware executable. --- Is this actually true? What i found online is that Ransom.PowerWare uses powershell but there is no mention of any of the ones we have studied using it :P https://www.symantec.com/content/dam/symantec/docs/security-center/white-papers/increased-use-of-powershell-in-attacks-16-en.pdf
+%https://www.theguardian.com/technology/2017/may/15/windows-xp-patch-wannacry-ransomware-wecry-wanacrypt0r
 % Use of proven cryptography
+% out-of-date systems and software
+% most users lack awareness of virus attack when browsing the Internet.
 
 \newpage
 
@@ -127,70 +137,78 @@ These are some common guidelines we should follow in order to prevent our system
 \bibitem{trend}
 Trend Micro
 \textit{Ransomware}
-\\\texttt{https://www.trendmicro.com/vinfo/us/security/definition/ransomware}
+\\\url{https://www.trendmicro.com/vinfo/us/security/definition/ransomware}
 
 \bibitem{grown1}
 Dunn, John E.
 \textit{Ransom Trojans spreading beyond Russian heartland}, 09 March 2012
-\\\texttt{https://www.techworld.com/news/security/ransom\-trojans\-spreading\-beyond\-russian\-heartland\-3343528/}
+\\\url{https://www.techworld.com/news/security/ransom-trojans-spreading-beyond-russian-heartland-3343528/}
 
 \bibitem{grown2}
 FBI
 \textit{New Internet scam: Ransomware}, 09 August 2012
-\\\texttt{https://www.fbi.gov/news/stories/new\-internet\-scam/new\-internet\-scam}
+\\\url{https://www.fbi.gov/news/stories/new-internet-scam/new-internet-scam}
 
 \bibitem{mcafee}
 Cyber criminals using Android malware and ransomware the most
 \textit{McAfee}, 16 September 2013
-\\\texttt{https://www.infoworld.com/article/2614854/security/update\-\-mcafee\-\-cyber\-criminals\-using\-android\-malware\-and\-ransomware\-the\-most.html}
+\\\url{https://www.infoworld.com/article/2614854/security/update-mcafee--cyber-criminals-using-android-malware-and-ransomware-the-most.html}
 
 \bibitem{bbc}
 Cryptolocker victims to get files back for free
 \textit{BBC News}, 06 August 2014
-\\\texttt{http://www.bbc.co.uk/news/technology\-28661463}
+\\\url{http://www.bbc.co.uk/news/technology-28661463}
 
 \bibitem{cyberwall}
 FBI says crypto ransomware has raked in >\$18 million for cybercriminals
 \textit{Ars Technica}, 25 June 2015
-\\\texttt{https://arstechnica.com/information\-technology/2015/06/fbi\-says\-crypto\-ransomware\-has\-raked\-in\-18\-million\-for\-cybercriminals}
+\\\url{https://arstechnica.com/information-technology/2015/06/fbi-says-crypto-ransomware-has-raked-in-18-million-for-cybercriminals}
 
 \bibitem{symantec}
 Dick O’Brien
 \textit{Internet Security Threat Report: Ransomware}, July 2017
-\\\texttt{https://www.symantec.com/content/dam/symantec/docs/security\-center/white\-papers/istr\-ransomware\-2017\-en.pdf}
+\\\url{https://www.symantec.com/content/dam/symantec/docs/security-center/white-papers/istr-ransomware-2017-en.pdf}
 
 \bibitem{genernalmitigation}
 Drive-By Downloads: How They Attack and How to Defend Yourself
-\\\texttt{https://www.tomsguide.com/us/driveby\-download,news\-18329.html}
+\\\url{https://www.tomsguide.com/us/driveby-download,news-18329.html}
 
 \bibitem{revetonremoval}
 Trojan:W32/Reveton
-\\\texttt{https://www.f\-secure.com/v\-descs/trojan\_w32\_reveton.shtml}
+\\\url{https://www.f-secure.com/v-descs/trojan_w32_reveton.shtml}
 
 \bibitem{revetonanalysis}
 The “Police Trojan”
 AN IN-DEPTH ANALYSIS
-\\\texttt{https://www.trendmicro.de/cloud\-content/us/pdfs/security\-intelligence/white\-papers/wp\_police\_trojan.pdf}
+\\\url{https://www.trendmicro.de/cloud-content/us/pdfs/security-intelligence/white-papers/wp_police_trojan.pdf}
 
 \bibitem{torcircuits}
 Tor: Hidden Service Protocol
-\\\texttt{https://www.torproject.org/docs/hidden\-services.html.en}
+\\\url{https://www.torproject.org/docs/hidden-services.html.en}
 
 \bibitem{PEtoolkit}
 pev, the PE file analysis toolkit
-\\\texttt{http://pev.sourceforge.net}
+\\\url{http://pev.sourceforge.net}
 
 \bibitem{pestrVideo}
 WannaCry 2.0 - Three ways to find the Kill Switch
-\\\texttt{https://www.youtube.com/watch?v=d56g3wahBck}
+\\\url{https://www.youtube.com/watch?v=d56g3wahBck}
 
 \bibitem{wanacryFindIpAddr}
 WannaCry 2.0 Ransomware
-\\\texttt{https://www.youtube.com/watch?v=d\_j8UUQbJsc}
+\\\url{https://www.youtube.com/watch?v=d\_j8UUQbJsc}
 
 \bibitem{wanacrySystems}
 Almost all WannaCry victims were running Windows 7
-\\\texttt{https://www.theverge.com/2017/5/19/15665488/wannacry\-windows\-7\-version\-xp\-patched\-victim\-statistics}
+\\\url{https://www.theverge.com/2017/5/19/15665488/wannacry-windows-7-version-xp-patched-victim-statistics}
+
+\bibitem{linuxRansomware}
+KillDisk now targeting Linux: Demands \$250K ransom, but can’t decrypt
+\\\url{https://www.welivesecurity.com/2017/01/05/killdisk-now-targeting-linux-demands-250k-ransom-cant-decrypt/}
+
+\bibitem{osxRansomware}
+New OS X Ransomware KeRanger Infected Transmission BitTorrent Client Installer
+\\\url{https://researchcenter.paloaltonetworks.com/2016/03/new-os-x-ransomware-keranger-infected-transmission-bittorrent-client-installer/}
 
 \end{thebibliography}
 
