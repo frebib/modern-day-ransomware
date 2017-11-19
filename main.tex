@@ -84,6 +84,19 @@ WannaCry (AKA WannaCrypt0r), is piece of ransomware that had a worldwide outburs
 In order to anonymize communication to its designers, WannaCrypt0r makes use of \textit{\textbf{Tor}}, which is installed when the system is infected. Tor provides a Hidden Service Protocol~\cite{torcircuits} which makes it extremely difficult to localize the malicious remote service being run by the attackers.
 Fortunately, the widely spread versions of WannaCry were found to have a kill switch after in depth analysis by Marcus Hutchins, a 22 year old English security researcher. This switch consisted in a URL  embedded in the ransomware executable that, if reachable, prevented the malware from deploying its payload and consequently spreading. Some of the later distributions of the malware seem to not have a kill switch. Contrarily to common belief, most of the infected systems were running a 64bit distribution of Windows 7, not Windows XP, which had a minimal impact in the spread of the attack~\cite{wanacrySystems}.
 
+\subsection{Unix Ransomware}
+
+\subsubsection{Linux.Encoder.1}
+
+The only known widespread ransomware attack on Linux systems was a Trojan known as \texttt{Linux.Encoder.1} and was considered the first of it's kind as an attack on Unix-like systems. It exploits a vulnerability in Magento, a popular CMS written in PHP, encrypting files mounted on local and network storage devices with AES and RSA cryptography using an RSA private key stored on a remote `Command and Control' server. After encryption completes, a file named \texttt{readme\_to\_decrypt.txt} is placed in every directory containing a message requesting payment for 1 BitCoin in exchange for decryption of the files; this differs to CryptoLocker and other ransomware as it states no deadline or increasing payments.\\
+This attack would encrypt documents, images and other media files amongst others with common file extensions as well as named directories like `backup' and those used by popular software such as Git, OpenSSH, nginx and Apache.
+
+Recovery of files without paying the ransom is trivial with this malware, as discovered by Bitdefender, due to the IV and encryption keys both bein seeded from the file timestamp therefore the encryption can be reversed given this information without even needing to pay the attackers.
+
+\subsubsection{KeRanger}
+
+Similarly to Linux, KeRanger is the only prevalent ransomware affecting macOS. It is a very close variant of the \texttt{Linux.Encoder.1} trojan described above. A flaw in `Transmission', a popular BitTorrent client was exploited by KeRanger to attack macOS systems, injecting the Trojan into the kernel allowing it to run and encrypt files.
+
 \section{Mitigations} \label{sec:mitigations}
 
 \subsection{Reveton}
