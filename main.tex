@@ -1,8 +1,9 @@
 \documentclass[10pt,a4paper]{article}
-\usepackage[margin=8em]{geometry}
+\usepackage[margin=7.5em]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[UKenglish]{babel}
 \usepackage[UKenglish]{isodate}
+\usepackage{color}
 \usepackage{eurosym}
 \usepackage[hyphens]{url}
 
@@ -27,11 +28,9 @@
     {\large \printdate{2017-11-19}}
   \end{center}
   \vspace*{\fill}
+  \tableofcontents
 \end{titlepage}
 
-\tableofcontents
-
-\newpage
 \pagenumbering{arabic}
 
 \section{Introduction}
@@ -39,8 +38,7 @@
 Ransomware is a type of malware that prevents or limits users from accessing their system, either by locking the system's screen or by locking the users' files until a ransom is paid. More modern ransomware families, collectively categorized as crypto-ransomware, encrypt certain file types on infected systems and force users to pay the ransom through given online payment methods to get a decrypt key.\cite{trend}
 
 Starting from around 2012 the use of ransomware frauds has grown worldwide~\cite{grown1}\cite{grown2} In June 2013, vendor McAfee released data showing that it had collected more than double the number of samples of ransomware that quarter than it had in the same quarter of the previous year~\cite{mcafee} CryptoLocker was particularly successful, procuring an estimated US \$3 million before it was taken down by authorities\cite{bbc}, and CryptoWall was estimated by the US Federal Bureau of Investigation (FBI) to have accrued over US \$18m by June 2015.\cite{cyberwall}
-
-\textbf{Symantec has classified ransomware to be the most dangerous cyber threat.~\cite{symantec}}
+Symantec has classified ransomware to be the most dangerous cyber threat.~\cite{symantec}
 
 \subsection{Motivation}
 Traditionally, crypto-ransomware targeted individuals and encrypted their personal data and files as a form of extortion for hundreds of dollars. Ransomware has evolved to target businesses and government agencies for much larger financial gains. Ransomware authors are pivoting their attacks from individuals to government entities and health care institutions, causing a threat to public safety. Security is at the heart of everything, it's what protects our privacy and that's why it's so important. Whenever there is an attack targeted towards a system you have to find a fast and efficient way to combat it. In order to do that we need to understand how it happened and need to learn how we can prevent such attacks from happening.
@@ -48,15 +46,16 @@ Traditionally, crypto-ransomware targeted individuals and encrypted their person
 \section{Ransomware attacks}
 
 \subsection{Reveton}
-Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that has targeted European users on the Windows operating systems (Windows XP \& Windows 7) since 2012. This ransomware can infect computers only by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources such as spam websites or e-mail. For example, an attacker can attach a Trojan file to a e-mail and send it to numerous of contacts, where the context of the e-mail or the name of the attachment file can be anything that might lure the victims to download it.
+Reveton (AKA Police Trojan) is a variant in the family of ransomware Trojan that has targeted European users on the Windows XP \& 7 operating systems since 2012. This ransomware can infect computers only by drive-by downloads, which means the Trojan files must be downloaded to the system via some sort of sources such as spam websites or e-mail. For example, an attacker can attach a Trojan file to a e-mail and send it to numerous of contacts, where the context of the e-mail or the name of the attachment file can be anything that might lure the victims to download it.
 
 Once Reveton successfully infects the computer, it will prevent the victim from accessing the system, and display a message mimicking that of a local law enforcement authority warning that illegal content is being stored in the victim’s computer. It also states that a fine must be paid to avoid prosecution.
 Upon execution, it follows these steps~\cite{revetonanalysis}:
 
 \begin{enumerate}
+\setlength\itemsep{-0.5em}
 \item It copies itself to a non-suspicious looking folder.
 \item Creates a registry entry in the autorun registry hive.
-\item Runs in special installation mode – injects installation code to \texttt{explorer.exe} that connects to its command-and-control server.
+\item Runs in special installation mode -- injects installation code to \texttt{explorer.exe} that connects to its command-and-control server.
 \item Downloads the local authority’s logo and local language that matches the geometric information of victim’s IP address.
 \item When running in ransomware mode, it creates two threads:
 \begin{itemize}
@@ -100,15 +99,12 @@ Similarly to Linux, KeRanger is the only prevalent ransomware affecting macOS. I
 \section{Mitigations} \label{sec:mitigations}
 
 \subsection{Reveton}
-
-\subsubsection{Trojan Removal}
 When a computer is infected by Reveton the trojan files are ran at system startup. Therefore, by booting a Windows system to safe mode, can avoid activation of Reveton and the victim can then remove Trojan related files~\cite{revetonremoval}. The Trojan file location varies depending on the version of Reveton.
 
 \subsection{CryptoLocker}
 
 \subsection{WannaCry}
 
-\subsubsection{Patches}
 Microsoft was made aware by the NSA of the possible theft of EternalBlue and had developed and released critical security updates for all their supported operating systems at the time, and additionally the recently discontinued Vista in March 2017, 2 months prior to the spread of WannaCry.
 
 Additionally, a day after the outbreak, the software house released a one-off security patch for their discontinued systems, XP and Server 2003.
@@ -124,6 +120,7 @@ By conducting some behavioural analysis on the ``WannaDecrypt0r'' executable, it
 \subsection{General good practice}
 These are some common guidelines we should follow in order to prevent our systems to become compromised~\cite{genernalmitigation}: 
 \begin{itemize}
+\setlength\itemsep{-0.5em}
 \item Keep the operating system and firewall up-to-date and patched.
 \item Install robust anti-virus software and keep it updated, so it contains the latest malware definitions.
 \item Create accounts for privilege user and normal user and limit permissions for unprivileged user when installing, updating, and uninstalling software.
@@ -133,12 +130,23 @@ These are some common guidelines we should follow in order to prevent our system
 
 
 \section{Conclusions}
-During this study we found Microsoft Windows is the operating systems that is targeted the most by ransomware. We believe that the reasons behind this correlate to the wide spread of Windows worldwide and to the wide variety of attack vectors and vulnerabilities found. While some ransomware attacks on Unix based systems exist~\cite{linuxRansomware}~\cite{osxRansomware} they aren't very well constructed as more often than not, the encryption is irreversible even after paying the ransom due to the lack of a remote channel of communication embedded in the binaries.
 
-We also found that most ransomware make use of strong, proven cryptography making for a very effective attack which causes the user to be likely to pay the ransom if they value their data as there is no way of getting it back without the correct key.
+Based on the sources used in this study it has been observed that the most attacked operating system is by far Microsoft Windows and there are multiple potential reasons why this is the case: \\
+Windows is almost ubiquitous across the globe, being used by almost every business, school, and individual -- this fact alone makes it worth attacking. Due to the spread of machines running Windows, it is also very likely that a large majority are not running with the latest updates including the important security updates fixing the specific vulnerabilities that some of these attacks rely on.\\
+Another reason for Windows being a particularly easy target is that a large majority of the user base consists of non-technically inclined end users who are easy to deceive through techniques such as phishing, as demonstrated by the distribution of CryptoLocker, and cleverly constructed malicious programs designed to look like legitimate Windows applications which allows attackers to coerce the actions of a user to something the attacker controls.
 
-When reading reports and articles detailing the misfortunes caused by recent attacks it becomes obvious that they usually exploit user naiveness and dated vulnerabilities which are often fixed before exploits are created but still work because users do not update their system as soon as it becomes available. This is an interesting psychological interaction between users and the Windows Update mechanism which is disliked by many because it starts at random times and hogs all of the machine's CPU. Microsoft has done some improvments that let users select at which time of day it is ok to update the system but nonetheless some users still defere critical updates because of it. In addition to the updating policies discussed in Section \ref{sec:mitigations} it is therefore crucial for companies and corporations to increase employee awareness with appropriate training that helps them recognize potential attack vectors.
+Whilst Windows is the most attacked operating system, other popular operating systems are not immune either. Both macOS and Linux, popular Unix-like operating systems are both known to be attacked too~\cite{linuxRansomware}~\cite{osxRansomware} however to a much lesser extent.
 
+
+{
+\color{red}
+During this study we observed that Microsoft Windows is the operating system that is targeted the most by ransomware. We believe that the reasons behind this correlate to the worldwide spread of Windows and to the wide variety of attack vectors and vulnerabilities found. While some ransomware attacks on Unix based systems exist~\cite{linuxRansomware}~\cite{osxRansomware}, they tend to be poorly constructed. The encryption is irreversible, even after paying the ransom, due to the lack of a remote channel of communication embedded in the binaries.
+
+We also found that most ransomware makes use of commonly available, well proven cryptography making for a very effective attack %TODO
+%which causes the user to be likely to pay the ransom if they value their data as there is no way of getting it back without the correct key.
+
+When reading reports and articles detailing the misfortunes caused by recent attacks it becomes obvious that they usually exploit user naiveness and dated vulnerabilities which are often fixed before exploits are created but still work because users do not update their system as soon as it becomes available. This is an interesting psychological interaction between users and the Windows Update mechanism which is disliked by many because it starts at random times and TODO hogs all of the machine's CPU. Microsoft has made some improvements that let users select at which time of day it is okay to update the system, but nonetheless some users still defer critical updates because of it. In addition to the updating policies discussed in Section \ref{sec:mitigations} it is therefore crucial for companies and corporations to increase employee awareness with appropriate training that helps them recognize potential attack vectors.
+}
 
 % quote here: many of the ransomware attacks studied used trusted tools like Microsoft's PowerShell to slip past certain antivirus software. More prevalent malware even used PowerShell as a means to download and run the actual ransomware executable. --- Is this actually true? What i found online is that Ransom.PowerWare uses powershell but there is no mention of any of the ones we have studied using it :P https://www.symantec.com/content/dam/symantec/docs/security-center/white-papers/increased-use-of-powershell-in-attacks-16-en.pdf
 %https://www.theguardian.com/technology/2017/may/15/windows-xp-patch-wannacry-ransomware-wecry-wanacrypt0r
